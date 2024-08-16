@@ -1,0 +1,43 @@
+# Our desired pipeline using only a Nix shell environment
+name: Check and build the package (Nix)
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "v*.*.*"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check_nix:
+    name: Check package
+    runs-on: ubuntu-22.04
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Check Nixpkgs inputs
+        uses: DeterminateSystems/flake-checker-action@main
+        with:
+          fail-mode: true
+
+      # Nix-specific logic begins here
+      - name: check static typing
+        run: |
+          nix develop --command \
+            mypy package tests
+    
+      - name: check formatting
+        run: |
+          nix develop --command \
+            pylint package tests
+
+      - name: run unit tests
+        run: |
+          nix develop --command \
+            pytest -s --doctest-modules --no-header
