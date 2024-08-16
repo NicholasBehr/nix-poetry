@@ -29,15 +29,12 @@ jobs:
       # Nix-specific logic begins here
       - name: check static typing
         run: |
-          nix develop --command \
-            mypy package tests
+          nix develop -c mypy package tests
     
       - name: check formatting
         run: |
-          nix develop --command \
-            pylint package tests
+          nix develop -c pylint package tests
 
       - name: run unit tests
         run: |
-          nix develop --command \
-            pytest -s --doctest-modules --no-header
+          nix develop -c pytest -s --doctest-modules --no-header

@@ -60,8 +60,7 @@
           pytest
         ]);
         shellHook = ''
-          export MYPYPATH=$PWD
-          exec zsh
+          export MYPYPATH=$PW
         '';
       };
     });
