@@ -1,0 +1,10 @@
+# dont version build results
+result
+# dont version caches
+__pycache__
+# JetBrains
+.idea/
+
+dist
+.direnv/
+
