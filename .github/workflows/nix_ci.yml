@@ -1,5 +1,4 @@
-# Our desired pipeline using only a Nix shell environment
-name: static types, formatting and unit/doc-tests
+name: types, format & tests
 
 on:
   push:
@@ -26,15 +25,17 @@ jobs:
         with:
           fail-mode: true
 
-      # Nix-specific logic begins here
-      - name: check static typing
+      - name: Check static typing
         run: |
-          nix develop -c mypy package tests
+          nix develop --command \
+            mypy --strict package tests
     
-      - name: check formatting
+      - name: Check formatting
         run: |
-          nix develop -c pylint package tests
+          nix develop --command \
+            pylint package tests
 
-      - name: run unit tests
+      - name: Run unit tests
         run: |
-          nix develop -c pytest -s --doctest-modules --no-header
+          nix develop --command \
+            pytest -s --doctest-modules --no-header

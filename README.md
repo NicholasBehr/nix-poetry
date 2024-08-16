@@ -1,6 +1,6 @@
 <div align=center>
 
-# python-poetry 🐍
+# nix-poetry 🐍
 
 Minimal **Python** development template for **Nix**
 
@@ -11,6 +11,7 @@ Minimal **Python** development template for **Nix**
 ## Usage
 
 - `nix develop`: opens up a `bash` shell with the poetry package
+  - here you can execute the local ci command `qa`
 - `nix run`: runs the Python program.
 
 ## Reference

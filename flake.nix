@@ -29,7 +29,7 @@
       set -e
 
       echo "1. check static typing ..."
-      mypy package tests
+      mypy --strict package tests
 
       echo "2. check formatting ..."
       pylint package tests
